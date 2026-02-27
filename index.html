@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Camera Demo</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    color:white;
+    font-family:Arial;
+    overflow:hidden;
+}
+
+.container{
+    position:relative;
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.overlay{
+    position:absolute;
+    bottom:30px;
+    width:100%;
+    text-align:center;
+}
+
+button{
+    padding:14px 28px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    background:#ff0050;
+    color:white;
+    cursor:pointer;
+}
+
+.top-bar{
+    position:absolute;
+    top:20px;
+    width:100%;
+    text-align:center;
+    font-size:20px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <video id="video" autoplay playsinline></video>
+
+    <div class="top-bar">
+        تجربة الكاميرا
+    </div>
+
+    <div class="overlay">
+        <button onclick="startCamera()">تشغيل الكاميرا</button>
+    </div>
+</div>
+
+<script>
+async function startCamera(){
+    try{
+        const stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "user" },
+            audio: false
+        });
+        document.getElementById("video").srcObject = stream;
+    }catch(e){
+        alert("يرجى السماح بتشغيل الكاميرا.");
+    }
+}
+</script>
+
+</body>
+</html>
